@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform('org.junit:junit-bom:5.7.0'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+javafx {
+    version = "18"
+    modules = [ 'javafx.controls' , 'javafx.fxml' ]
+}
+
+mainClassName = 'Main'

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="animal.AnimalDNATest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-03-01T20:15:00" hostname="DESKTOP-5LA2LCO" time="0.019">
+  <properties/>
+  <testcase name="checkIfDNACreatedWithConstructorWith2DNAsInputCreatesProperly()" classname="animal.AnimalDNATest" time="0.014"/>
+  <testcase name="checkIfDNACreatedWithConstructorHasEveryNeededValues()" classname="animal.AnimalDNATest" time="0.001"/>
+  <testcase name="checkIfDNAGeneratesDNAWithEveryNeededValues()" classname="animal.AnimalDNATest" time="0.001"/>
+  <testcase name="checkIfRandomRotationWorks()" classname="animal.AnimalDNATest" time="0.001"/>
+  <testcase name="checkIfDNAGeneratesDNAWithCorrectLength()" classname="animal.AnimalDNATest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

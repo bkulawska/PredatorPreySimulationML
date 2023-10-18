@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="map.WorldMapTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2023-03-01T20:15:00" hostname="DESKTOP-5LA2LCO" time="0.01">
+  <properties/>
+  <testcase name="checkIfGrassIsPlanted()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="checkIfAliveAnimalsArePutIntoAliveAnimalsArray()" classname="map.WorldMapTest" time="0.001"/>
+  <testcase name="checkIfAnimalsPositionIsAdjustedWhenOutOfTheBorder()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="checkIfMapTakesEnergyFromAllAliveAnimals()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="checkIfDeadAnimalsArePutIntoDeadAnimalsArray()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="testIfCorrectAnimalsAreMatingTwo()" classname="map.WorldMapTest" time="0.001"/>
+  <testcase name="testIfMatingCreatesNewAnimal()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="testIfAfterMatingAnimalIsInFreePosition()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="testIfAfterMatingAnimalIsInCorrectPosition()" classname="map.WorldMapTest" time="0.001"/>
+  <testcase name="testIfAfterMatingParentHasProperAmountOfEnergy()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="checkIfProperAnimalEatsTheGrass()" classname="map.WorldMapTest" time="0.0"/>
+  <testcase name="testIfAfterMatingAnimalHasProperAmountOfEnergy()" classname="map.WorldMapTest" time="0.001"/>
+  <testcase name="checkIfAllAnimalsEatsGrass()" classname="map.WorldMapTest" time="0.001"/>
+  <testcase name="checkIfGrassDisappearsAfterBeingEaten()" classname="map.WorldMapTest" time="0.001"/>
+  <testcase name="testIfCorrectAnimalsAreMating()" classname="map.WorldMapTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="animal.AnimalTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2023-03-01T20:15:00" hostname="DESKTOP-5LA2LCO" time="0.015">
+  <properties/>
+  <testcase name="checkIfAnimalCanMateFalse()" classname="animal.AnimalTest" time="0.004"/>
+  <testcase name="getDayOfBirth()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkIfAnimalCanMateTrue()" classname="animal.AnimalTest" time="0.001"/>
+  <testcase name="checkDayOfDeathIfAlive()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="getNumberOfChildrenIfNot0()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkIfAnimalEatsGrassProperly()" classname="animal.AnimalTest" time="0.001"/>
+  <testcase name="checkIfAnimalDNAHasCorrectLengthAfterMating()" classname="animal.AnimalTest" time="0.001"/>
+  <testcase name="checkDayOfDeath()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkIfAnimalDNAHasCorrectLength()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkIfAnimalHasInheritedInitialEnergyValueFromItsParentsFalse()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkIfAnimalHasCorrectAmountOfEnergyAfterBirth()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="getNumberOfChildrenIf0()" classname="animal.AnimalTest" time="0.001"/>
+  <testcase name="checkIfAnimalMovesProperly()" classname="animal.AnimalTest" time="0.001"/>
+  <testcase name="checkIfAnimalHasInheritedInitialEnergyValueFromItsParentsTrue()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkEnergyReduction()" classname="animal.AnimalTest" time="0.0"/>
+  <testcase name="checkEnergyApplication()" classname="animal.AnimalTest" time="0.001"/>
+  <testcase name="checkDeathAction()" classname="animal.AnimalTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

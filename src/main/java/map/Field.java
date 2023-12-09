@@ -40,6 +40,10 @@ public class Field {
     public boolean containsPreys() {
         return preys.size() != 0;
     }
+
+    public boolean containsPredators() {
+        return predators.size() != 0;
+    }
   
     public boolean getContainsGrass() {
         return containsGrass;
@@ -154,13 +158,8 @@ public class Field {
             double energyFromKilledPreys = 0.0;
         };
         for(int i = 0; i < Math.min(preys.size(), predators.size()); i++) {
-            double predatorSpeed = predatorsList.get(predators.size() - 1 - i).getSpeed();
             Prey prey = preyList.get(i);
-            if(predatorSpeed > prey.getSpeed()) {
-                if(Math.random() < (predatorSpeed - prey.getSpeed())*HUNT_SUCCESS_RATE) {
-                    ref.energyFromKilledPreys += prey.kill(day) * KILLED_PREY_ENERGY_MULTIPLIER;
-                }
-            }
+            ref.energyFromKilledPreys += prey.kill(day) * KILLED_PREY_ENERGY_MULTIPLIER;
         }
         predators.forEach(predator -> predator.eatPrey(ref.energyFromKilledPreys /predators.size()));
     }
@@ -169,11 +168,7 @@ public class Field {
         for(int i = 0; i < Math.min(preys.size(), predators.size()); i++) {
             Predator predator = predatorsList.get(predators.size() - 1 - i);
             Prey prey = preyList.get(i);
-            if(predator.getSpeed() > prey.getSpeed()) {
-                if(Math.random() < (predator.getSpeed() - prey.getSpeed())*HUNT_SUCCESS_RATE) {
-                    predator.eatPrey(prey.kill(day)*KILLED_PREY_ENERGY_MULTIPLIER);
-                }
-            }
+            predator.eatPrey(prey.kill(day)*KILLED_PREY_ENERGY_MULTIPLIER);
         }
     }
 }

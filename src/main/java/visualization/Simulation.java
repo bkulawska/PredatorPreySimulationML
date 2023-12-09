@@ -41,12 +41,6 @@ public class Simulation extends BorderPane {
 
   private void updateEngine() {
     engine.nextDay();
-    engine.nextDay();
-    engine.nextDay();
-    engine.nextDay();
-    engine.nextDay();
-    engine.nextDay();
-    engine.nextDay();
     generatePane();
   }
 

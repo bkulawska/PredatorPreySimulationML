@@ -1,11 +1,12 @@
 package map;
-import observer.IFieldAvailabilityObserver;
-import observer.IPositionChangeObserver;
-import observer.IFieldAvailabilityPublisher;
-import vector2d.*;
-import animal.*;
 
-import java.io.File;
+import animal.Animal;
+import animal.Prey;
+import observer.IFieldAvailabilityObserver;
+import observer.IFieldAvailabilityPublisher;
+import observer.IPositionChangeObserver;
+import vector2d.Vector2d;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -51,9 +52,17 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
   public void moveAllAnimals()
   {
     for(Animal animal:alivePreys)
-      animal.move();
+      moveAnimal(animal);
     for(Animal animal:alivePredators)
-      animal.move();
+      moveAnimal(animal);
+  }
+
+  private void moveAnimal(Animal animal) {
+    var animalPurview = animal.getPurview();
+    var environmentFields = fields.values().stream()
+            .filter(field -> animalPurview.contains(field.getPosition()))
+            .toList();
+    animal.move(new Environment(environmentFields));
   }
 
   public void takeEnergyFromAnimals(int day, double energy) {

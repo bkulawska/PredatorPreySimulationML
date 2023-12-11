@@ -1,10 +1,12 @@
 package animal;
 
+import map.Environment;
 import map.WorldMap;
 import observer.IPositionChangeObserver;
 import vector2d.Vector2d;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class AnimalImpl implements Animal{
     AnimalDNA DNA;
@@ -96,11 +98,13 @@ public abstract class AnimalImpl implements Animal{
     }
 
     @Override
-    public void move() {
-        Vector2d positionTmp = map.adjustPosition(position.addRandDirection());
+    public void move(Environment environment) {
+        Vector2d positionTmp = map.adjustPosition(selectMove(environment));
         positionChanged(position, positionTmp);
         position = positionTmp;
     }
+
+    protected abstract Vector2d selectMove(Environment environment);
 
     @Override
     public double getSpeed() {
@@ -115,6 +119,14 @@ public abstract class AnimalImpl implements Animal{
     @Override
     public void removeObserver(IPositionChangeObserver observer) {
         subscribers.remove(observer);
+    }
+
+    @Override
+    public List<Vector2d> getPurview() {
+        return position.getMooreNeighborhood().stream()
+                .map(map::adjustPosition)
+                .distinct()
+                .toList();
     }
 
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {

@@ -1,5 +1,6 @@
 package vector2d;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,6 +57,19 @@ public class Vector2d {
   public Vector2d opposite()
   {
     return new Vector2d(-1 * this.x, -1 * this.y);
+  }
+
+  public List<Vector2d> getVonNeumannNeighborhood() {
+    return Arrays.stream(directionTab)
+            .filter(vector2d -> vector2d.x == 0 || vector2d.y == 0)
+            .map(this::add)
+            .toList();
+  }
+
+  public List<Vector2d> getMooreNeighborhood() {
+    return Arrays.stream(directionTab)
+            .map(this::add)
+            .toList();
   }
 
   @Override

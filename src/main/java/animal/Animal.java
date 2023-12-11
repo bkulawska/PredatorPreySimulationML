@@ -1,8 +1,11 @@
 package animal;
 
+import map.Environment;
 import observer.IPositionChangeObserver;
 import observer.IPositionChangePublisher;
 import vector2d.Vector2d;
+
+import java.util.List;
 
 public interface Animal extends IPositionChangePublisher {
 
@@ -32,7 +35,9 @@ public interface Animal extends IPositionChangePublisher {
 
     Vector2d getPosition();
 
-    void move();
+    void move(Environment environment);
+
+    List<Vector2d> getPurview();
 
     void addObserver(IPositionChangeObserver observer);
 

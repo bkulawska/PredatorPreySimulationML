@@ -1,6 +1,5 @@
 package qlearning;
 
-import animal.Animal;
 import map.Environment;
 import vector2d.Vector2d;
 

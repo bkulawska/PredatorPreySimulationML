@@ -4,11 +4,12 @@ import animal.Animal;
 import vector2d.Vector2d;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Environment {
     private final Collection<Field> environment;
-    private Animal animal;
+    private final Animal animal;
     private final boolean isPredator;
 
     public Environment(Collection<Field> environment, Animal animal, boolean isPredator) {
@@ -17,29 +18,27 @@ public class Environment {
         this.isPredator = isPredator;
     }
 
-    public List<Vector2d> getPreys() {
+    public Set<Vector2d> getPreys() {
         return environment.stream()
                 .filter(Field::containsPreys)
                 .map(Field::getPosition)
                 .map(this::mapVector)
-                .toList();
-    }
+                .collect(Collectors.toSet());    }
 
-    public List<Vector2d> getPredators() {
+    public Set<Vector2d> getPredators() {
         return environment.stream()
                 .filter(Field::containsPredators)
                 .map(Field::getPosition)
                 .map(this::mapVector)
-                .toList();
+                .collect(Collectors.toSet());
     }
 
-    public List<Vector2d> getGrass() {
+    public Set<Vector2d> getGrass() {
         return environment.stream()
                 .filter(Field::getContainsGrass)
                 .map(Field::getPosition)
                 .map(this::mapVector)
-                .toList();
-    }
+                .collect(Collectors.toSet());    }
 
     public boolean isPredator() {
         return isPredator;

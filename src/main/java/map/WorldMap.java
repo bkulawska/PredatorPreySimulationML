@@ -49,8 +49,7 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
     return fields;
   }
 
-  public void moveAllAnimals()
-  {
+  public void moveAllAnimals() {
     for(Animal animal:alivePreys)
       moveAnimal(animal, false);
     for(Animal animal:alivePredators)
@@ -73,7 +72,7 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
     sectors.plantGrass(fields, n);
   }
 
-  public void makeAnimalsToEatGrass(int aEnergy) {
+  public void makeAnimalsEatGrass(int aEnergy) {
     Collection<Field> colOfFields = fields.values();
     for (Field current : colOfFields) {
       if (current.containsPreys()) {
@@ -138,11 +137,15 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
 
   public void updateKnowledge() {
     for (Animal predator : alivePredators) {
-      predator.updateKnowledge(getEnvironment(predator, true));
+      updateKnowledge(predator, true);
     }
     for (Animal prey : alivePreys) {
-      prey.updateKnowledge(getEnvironment(prey, false));
+      updateKnowledge(prey, false);
     }
+  }
+
+  public void updateKnowledge(Animal animal, boolean isPredator) {
+    animal.updateKnowledge(getEnvironment(animal, isPredator));
   }
 
   private Environment getEnvironment(Animal animal, boolean isPredator) {
@@ -154,14 +157,12 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
   }
 
   @Override
-  public void addObserver(IFieldAvailabilityObserver observer)
-  {
+  public void addObserver(IFieldAvailabilityObserver observer) {
     subscribers.add(observer);
   }
 
   @Override
-  public void removeObserver(IFieldAvailabilityObserver observer)
-  {
+  public void removeObserver(IFieldAvailabilityObserver observer) {
     subscribers.remove(observer);
   }
 

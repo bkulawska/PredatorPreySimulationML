@@ -150,7 +150,7 @@ public abstract class AnimalImpl implements Animal{
     }
 
     boolean shouldTryExperiment() {
-        return knowledgeBase.getExperimentRate() < Math.random();
+        return knowledgeBase.getExperimentRate() > Math.random();
     }
 
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {

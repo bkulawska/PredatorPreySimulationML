@@ -29,5 +29,4 @@ public enum Action {
         int randomIndex = (int) (Math.random() * actions.length);
         return actions[randomIndex];
     }
-
 }

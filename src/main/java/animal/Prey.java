@@ -1,7 +1,11 @@
 package animal;
 
+import map.Environment;
 import map.WorldMap;
+import qlearning.AnimalState;
 import vector2d.Vector2d;
+
+import java.util.Collections;
 
 public class Prey extends AnimalImpl{
     private static double initialEnergy;
@@ -10,6 +14,7 @@ public class Prey extends AnimalImpl{
     public Prey(Prey parent1, Prey parent2, int dayOfBirth, Vector2d position){
         super(parent1, parent2, dayOfBirth, position);
         DNA = new PreyDNA(parent1, parent2);
+        this.previousState = new AnimalState(new Environment(Collections.emptyList(), this, false));
     }
 
     public Prey(WorldMap map, Vector2d position) {

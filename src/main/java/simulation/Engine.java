@@ -84,7 +84,7 @@ public class Engine {
   {
     map.cleanDeadAnimals();
     map.moveAllAnimals();
-    map.makeAnimalsToEatGrass(grassGain);
+    map.makeAnimalsEatGrass(grassGain);
     map.hunt(day);
     map.takeEnergyFromAnimals(day, dayCost);
     map.mateAnimals(day);

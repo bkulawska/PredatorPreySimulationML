@@ -52,17 +52,13 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
   public void moveAllAnimals()
   {
     for(Animal animal:alivePreys)
-      moveAnimal(animal);
+      moveAnimal(animal, false);
     for(Animal animal:alivePredators)
-      moveAnimal(animal);
+      moveAnimal(animal, true);
   }
 
-  private void moveAnimal(Animal animal) {
-    var animalPurview = animal.getPurview();
-    var environmentFields = fields.values().stream()
-            .filter(field -> animalPurview.contains(field.getPosition()))
-            .toList();
-    animal.move(new Environment(environmentFields));
+  private void moveAnimal(Animal animal, boolean isPredator) {
+    animal.move(getEnvironment(animal, isPredator));
   }
 
   public void takeEnergyFromAnimals(int day, double energy) {
@@ -138,6 +134,23 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
       makePositionUnavailable(newPosition);
     }
     fields.get(newPosition).insertNewAnimal(animal);
+  }
+
+  public void updateKnowledge() {
+    for (Animal predator : alivePredators) {
+      predator.updateKnowledge(getEnvironment(predator, true));
+    }
+    for (Animal prey : alivePreys) {
+      prey.updateKnowledge(getEnvironment(prey, false));
+    }
+  }
+
+  private Environment getEnvironment(Animal animal, boolean isPredator) {
+    var animalPurview = animal.getPurview();
+    var environmentFields = fields.values().stream()
+            .filter(field -> animalPurview.contains(field.getPosition()))
+            .toList();
+    return new Environment(environmentFields, animal, isPredator);
   }
 
   @Override

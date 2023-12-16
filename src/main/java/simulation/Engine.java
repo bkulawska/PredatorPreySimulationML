@@ -88,6 +88,7 @@ public class Engine {
     map.hunt(day);
     map.takeEnergyFromAnimals(day, dayCost);
     map.mateAnimals(day);
+    map.updateKnowledge();
     map.plantGrass(newGrass);
     map.saveData(outputStream, day);
     day++;

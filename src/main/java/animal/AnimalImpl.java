@@ -3,10 +3,14 @@ package animal;
 import map.Environment;
 import map.WorldMap;
 import observer.IPositionChangeObserver;
+import qlearning.Action;
+import qlearning.AnimalState;
+import qlearning.KnowledgeBase;
 import vector2d.Vector2d;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class AnimalImpl implements Animal{
     AnimalDNA DNA;
@@ -19,6 +23,9 @@ public abstract class AnimalImpl implements Animal{
     boolean isAlive = true;
     private final LinkedList<IPositionChangeObserver> subscribers = new LinkedList<>();
     private Integer ancestryFactor = -1;
+    KnowledgeBase knowledgeBase;
+    AnimalState previousState;
+    Action previousAction;
 
     public AnimalImpl(AnimalImpl parent1, AnimalImpl parent2, int dayOfBirth, Vector2d position) {
         this.ancestryFactor = Math.max(parent1.getAncestryFactor(), parent2.getAncestryFactor());
@@ -29,6 +36,7 @@ public abstract class AnimalImpl implements Animal{
         this.position = position;
         this.map.place(this);
         this.energy = parent1.giveEnergyToAChild() + parent2.giveEnergyToAChild();
+        this.knowledgeBase = new KnowledgeBase();
     }
 
     public AnimalImpl(WorldMap map, Vector2d position) {
@@ -36,6 +44,7 @@ public abstract class AnimalImpl implements Animal{
         this.map = map;
         this.position = position;
         this.map.place(this);
+        this.knowledgeBase = new KnowledgeBase();
     }
 
     @Override
@@ -104,8 +113,6 @@ public abstract class AnimalImpl implements Animal{
         position = positionTmp;
     }
 
-    protected abstract Vector2d selectMove(Environment environment);
-
     @Override
     public double getSpeed() {
         return this.DNA.getSpeed();
@@ -127,6 +134,23 @@ public abstract class AnimalImpl implements Animal{
                 .map(map::adjustPosition)
                 .distinct()
                 .toList();
+    }
+
+    protected Vector2d selectMove(Environment environment) {
+        this.previousState = new AnimalState(environment);
+        Action action = shouldTryExperiment() ? Action.getRandomAction() : knowledgeBase.getBestAction(this.previousState);
+        this.previousAction = action;
+        return action.getNewPosition(getPosition());
+    }
+
+    @Override
+    public void updateKnowledge(Environment environment) {
+        AnimalState currentState = new AnimalState(environment);
+        knowledgeBase.updateKnowledge(previousState, currentState, previousAction);
+    }
+
+    boolean shouldTryExperiment() {
+        return knowledgeBase.getExperimentRate() < Math.random();
     }
 
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {

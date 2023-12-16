@@ -1,6 +1,5 @@
 package animal;
 
-import map.Environment;
 import map.WorldMap;
 import vector2d.Vector2d;
 
@@ -27,11 +26,6 @@ public class Prey extends AnimalImpl{
     @Override
     public PreyDNA getDNA() {
         return (PreyDNA) DNA;
-    }
-
-    @Override
-    protected Vector2d selectMove(Environment environment) {
-        return getPosition().addRandDirection();
     }
 
     public void eatGrass(double energy) {

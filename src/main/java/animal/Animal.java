@@ -48,4 +48,6 @@ public interface Animal extends IPositionChangePublisher {
 
     @Override
     int hashCode();
+
+    void updateKnowledge(Environment environment);
 }

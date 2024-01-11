@@ -16,6 +16,7 @@ public abstract class AnimalImpl implements Animal{
     private final WorldMap map;
     private Vector2d position;
     double energy;
+    double maxEnergy;
     private final int dayOfBirth;
     private int numberOfChildren = 0;
     int dayOfDeath;
@@ -42,7 +43,8 @@ public abstract class AnimalImpl implements Animal{
         this.map = parent1.map;
         this.position = position;
         this.map.place(this);
-        this.energy = parent1.giveEnergyToAChild() + parent2.giveEnergyToAChild();
+        setEnergy(parent1.giveEnergyToAChild() + parent2.giveEnergyToAChild());
+        this.maxEnergy = parent1.maxEnergy;
         this.knowledgeBase = knowledgeBase;
     }
 
@@ -71,8 +73,8 @@ public abstract class AnimalImpl implements Animal{
 
     @Override
     public void takeEnergy(double energy, int day) {
-        this.energy -= energy * this.DNA.getEnergyConsumption();
-        if(this.energy < 0){
+        setEnergy(this.energy - energy * this.DNA.getEnergyConsumption());
+        if(this.energy <= 0){
             this.isAlive = false;
             this.dayOfDeath = day;
         }
@@ -171,5 +173,9 @@ public abstract class AnimalImpl implements Animal{
         double startEnergy = energy;
         energy = energy*0.75;
         return startEnergy - energy;
+    }
+
+    protected void setEnergy(double energy) {
+        this.energy = Math.max(Math.min(energy, maxEnergy), 0);
     }
 }

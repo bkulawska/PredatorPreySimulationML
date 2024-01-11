@@ -11,6 +11,7 @@ import java.util.Collections;
 public class Prey extends AnimalImpl{
     private static double initialEnergy;
     private static double matingEnergy;
+    private static double energyLimit;
 
     public Prey(Prey parent1, Prey parent2, int dayOfBirth, Vector2d position){
         super(parent1, parent2, dayOfBirth, position);
@@ -24,7 +25,8 @@ public class Prey extends AnimalImpl{
 
     public Prey(WorldMap map, Vector2d position, KnowledgeBase knowledgeBase) {
         super(map, position, knowledgeBase);
-        energy = initialEnergy;
+        maxEnergy = energyLimit;
+        setEnergy(initialEnergy);
         DNA = new PreyDNA();
     }
 
@@ -48,6 +50,10 @@ public class Prey extends AnimalImpl{
 
     public static void setMinimalMatingEnergy(double energy) {
         matingEnergy = energy;
+    }
+
+    public static void setEnergyLimit(double energyLimit) {
+        Prey.energyLimit = energyLimit;
     }
 
     public double kill(int day) {

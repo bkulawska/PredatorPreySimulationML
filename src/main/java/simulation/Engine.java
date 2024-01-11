@@ -46,7 +46,9 @@ public class Engine {
     PredatorDNA.setSpeedMultipliers(fileParser.predatorSpeedMultiplier1, fileParser.predatorSpeedMultiplier2, fileParser.predatorSpeedMultiplier3);
     newGrass = fileParser.dailyGrassSpawn;
     Predator.setMinimalMatingEnergy(fileParser.startPredatorsEnergy*0.07);
+    Predator.setEnergyLimit(fileParser.startPredatorsEnergy*1.2);
     Prey.setMinimalMatingEnergy(fileParser.startPreysEnergy*0.07);
+    Prey.setEnergyLimit(fileParser.startPreysEnergy*1.2);
     map = new WorldMap(fileParser.width, fileParser.height);
     this.grassGain = fileParser.grassIncome;
     this.dayCost = fileParser.dayCost;

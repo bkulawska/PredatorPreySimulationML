@@ -1,12 +1,9 @@
 package simulation;
 
-import animal.Animal;
-import animal.Predator;
-import animal.PredatorDNA;
-import animal.Prey;
-import animal.PreyDNA;
+import animal.*;
 import map.Field;
 import map.WorldMap;
+import qlearning.KnowledgeBase;
 import utilities.FileParser;
 import vector2d.Vector2d;
 
@@ -26,6 +23,10 @@ public class Engine {
 
   public Engine(FileParser fileParser)
   {
+    this(fileParser, new IndividualKnowledgeAnimalFactory());
+  }
+
+  public Engine(FileParser fileParser, AnimalFactory animalFactory) {
     String FILENAME = fileParser.resultFilename;
     String root = System.getProperty("user.dir");
     String filePath = root+ File.separator+"src"+File.separator+"main" +File.separator+"resources" + File.separator + FILENAME;
@@ -50,7 +51,7 @@ public class Engine {
     this.grassGain = fileParser.grassIncome;
     this.dayCost = fileParser.dayCost;
     placeNAnimalOnMap(fileParser.numberOfPredators, fileParser.numberOfPreys, fileParser.startPredatorsEnergy,
-                      fileParser.startPreysEnergy, fileParser.width, fileParser.height);
+            fileParser.startPreysEnergy, fileParser.width, fileParser.height, animalFactory);
     map.plantGrass(fileParser.numberOfGrass);
   }
 
@@ -94,7 +95,7 @@ public class Engine {
     day++;
   }
 
-  private void placeNAnimalOnMap(int n_predators, int n_preys, double startPredatorEnergy, double startPreyEnergy, int width, int height)
+  private void placeNAnimalOnMap(int n_predators, int n_preys, double startPredatorEnergy, double startPreyEnergy, int width, int height, AnimalFactory animalFactory)
   {
     Predator.setInitialEnergy(startPredatorEnergy);
     Prey.setInitialEnergy(startPreyEnergy);
@@ -107,14 +108,14 @@ public class Engine {
     int i = 0;
     while(list.size() > 0 && i < n_preys) {
       int pos = (int)(Math.random() * list.size());
-      new Prey(map, list.get(pos));
+      animalFactory.createPrey(map, list.get(pos));
       list.remove(pos);
       i++;
     }
     i = 0;
     while(list.size() > 0 && i < n_predators) {
       int pos = (int)(Math.random() * list.size());
-      new Predator(map, list.get(pos));
+      animalFactory.createPredator(map, list.get(pos));
       list.remove(pos);
       i++;
     }
@@ -134,5 +135,9 @@ public class Engine {
 
   public double getAveragePreyEnergyMultiplier() {
     return getAlivePreys().stream().mapToDouble(prey -> prey.getDNA().getEnergyConsumption()).average().orElse(0.0);
+  }
+
+  public boolean areBothSpeciesAlive() {
+    return getAlivePredators().size() != 0 && getAlivePreys().size() != 0;
   }
 }

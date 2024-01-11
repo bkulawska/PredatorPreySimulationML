@@ -3,6 +3,7 @@ package animal;
 import map.Environment;
 import map.WorldMap;
 import qlearning.AnimalState;
+import qlearning.KnowledgeBase;
 import vector2d.Vector2d;
 
 import java.util.Collections;
@@ -18,7 +19,11 @@ public class Prey extends AnimalImpl{
     }
 
     public Prey(WorldMap map, Vector2d position) {
-        super(map, position);
+        this(map, position, new KnowledgeBase());
+    }
+
+    public Prey(WorldMap map, Vector2d position, KnowledgeBase knowledgeBase) {
+        super(map, position, knowledgeBase);
         energy = initialEnergy;
         DNA = new PreyDNA();
     }

@@ -10,7 +10,6 @@ import vector2d.Vector2d;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public abstract class AnimalImpl implements Animal{
     AnimalDNA DNA;
@@ -28,6 +27,14 @@ public abstract class AnimalImpl implements Animal{
     Action previousAction;
 
     public AnimalImpl(AnimalImpl parent1, AnimalImpl parent2, int dayOfBirth, Vector2d position) {
+        this(parent1, parent2, dayOfBirth, position, new KnowledgeBase());
+    }
+
+    public AnimalImpl(WorldMap map, Vector2d position) {
+        this(map, position, new KnowledgeBase());
+    }
+
+    public AnimalImpl(AnimalImpl parent1, AnimalImpl parent2, int dayOfBirth, Vector2d position, KnowledgeBase knowledgeBase) {
         this.ancestryFactor = Math.max(parent1.getAncestryFactor(), parent2.getAncestryFactor());
         parent1.addChild();
         parent2.addChild();
@@ -36,15 +43,15 @@ public abstract class AnimalImpl implements Animal{
         this.position = position;
         this.map.place(this);
         this.energy = parent1.giveEnergyToAChild() + parent2.giveEnergyToAChild();
-        this.knowledgeBase = new KnowledgeBase();
+        this.knowledgeBase = knowledgeBase;
     }
 
-    public AnimalImpl(WorldMap map, Vector2d position) {
+    public AnimalImpl(WorldMap map, Vector2d position, KnowledgeBase knowledgeBase) {
         this.dayOfBirth = 0;
         this.map = map;
         this.position = position;
         this.map.place(this);
-        this.knowledgeBase = new KnowledgeBase();
+        this.knowledgeBase = knowledgeBase;
     }
 
     @Override

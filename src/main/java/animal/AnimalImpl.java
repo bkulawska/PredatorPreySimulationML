@@ -6,6 +6,7 @@ import observer.IPositionChangeObserver;
 import qlearning.Action;
 import qlearning.AnimalState;
 import qlearning.KnowledgeBase;
+import qlearning.RewardUtil;
 import vector2d.Vector2d;
 
 import java.util.LinkedList;
@@ -26,9 +27,10 @@ public abstract class AnimalImpl implements Animal{
     KnowledgeBase knowledgeBase;
     AnimalState previousState;
     Action previousAction;
+    private DayReport dayReport = new DayReport();
 
     public AnimalImpl(AnimalImpl parent1, AnimalImpl parent2, int dayOfBirth, Vector2d position) {
-        this(parent1, parent2, dayOfBirth, position, new KnowledgeBase());
+        this(parent1, parent2, dayOfBirth, position, parent1.knowledgeBase);
     }
 
     public AnimalImpl(WorldMap map, Vector2d position) {
@@ -83,6 +85,7 @@ public abstract class AnimalImpl implements Animal{
     @Override
     public void addChild() {
         numberOfChildren += 1;
+        dayReport.recordMate();
     }
 
     @Override
@@ -155,7 +158,8 @@ public abstract class AnimalImpl implements Animal{
     @Override
     public void updateKnowledge(Environment environment) {
         AnimalState currentState = new AnimalState(environment);
-        knowledgeBase.updateKnowledge(previousState, currentState, previousAction);
+        double reward = RewardUtil.calculateReward(previousState, dayReport);
+        knowledgeBase.updateKnowledge(previousState, currentState, previousAction, reward);
     }
 
     boolean shouldTryExperiment() {
@@ -177,5 +181,13 @@ public abstract class AnimalImpl implements Animal{
 
     protected void setEnergy(double energy) {
         this.energy = Math.max(Math.min(energy, maxEnergy), 0);
+    }
+
+    public void resetDayReport() {
+        dayReport = new DayReport();
+    }
+
+    public DayReport getDayReport() {
+        return dayReport;
     }
 }

@@ -42,6 +42,7 @@ public class Prey extends AnimalImpl{
 
     public void eatGrass(double energy) {
         this.energy += energy;
+        this.getDayReport().recordEat();
     }
 
     public static void setInitialEnergy(double energy) {

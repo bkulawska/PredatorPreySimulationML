@@ -46,11 +46,11 @@ public class KnowledgeBase {
         return bestScore == Double.MIN_VALUE ? 0.0 : bestScore;
     }
 
-    public void updateKnowledge(AnimalState previousState, AnimalState currentState, Action action) {
+    public void updateKnowledge(AnimalState previousState, AnimalState currentState, Action action, double reward) {
         Double value = knowledge.get(new StateActionPair(currentState, action));
         double score = value == null ? 0.0 : value;
         Double newScore = (1 - learningRate) * score +
-                learningRate * (RewardUtil.calculateReward(previousState) + discountFactor * getBestScore(currentState));
+                learningRate * (reward + discountFactor * getBestScore(currentState));
         knowledge.put(new StateActionPair(previousState, action), newScore);
     }
 }

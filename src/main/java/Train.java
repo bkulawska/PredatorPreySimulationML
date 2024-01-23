@@ -20,7 +20,7 @@ public class Train {
         var animalFactory = new SharedKnowledgeAnimalFactory();
         for (int i = 0; i < epochs; i++) {
             var daysSurvived = epoch(fileParser, animalFactory);
-            System.out.println(String.format("Epoch: %s, days survived: %s", i, daysSurvived));
+            System.out.printf("Epoch: %s, days survived: %s%n", i, daysSurvived);
             trainingStatistics.saveEpoch(daysSurvived);
         }
     }
@@ -28,7 +28,8 @@ public class Train {
     public static int epoch(FileParser fileParser, AnimalFactory animalFactory) {
         var engine = new Engine(fileParser, animalFactory);
         var i = 0;
-        while (engine.areBothSpeciesAlive()) {
+        while (engine.getAlivePredatorsCount() > 0 && engine.getAlivePreysCount() > 0) {
+            System.out.printf("Predators: %s, Preys: %s%n", engine.getAlivePredatorsCount(), engine.getAlivePreysCount());
             engine.nextDay();
             i++;
         }

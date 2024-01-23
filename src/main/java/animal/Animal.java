@@ -50,4 +50,6 @@ public interface Animal extends IPositionChangePublisher {
     int hashCode();
 
     void updateKnowledge(Environment environment);
+
+    void resetDayReport();
 }

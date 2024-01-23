@@ -94,6 +94,7 @@ public class Engine {
     map.updateKnowledge();
     map.plantGrass(newGrass);
     map.saveData(outputStream, day);
+    map.endDay();
     day++;
   }
 
@@ -139,7 +140,11 @@ public class Engine {
     return getAlivePreys().stream().mapToDouble(prey -> prey.getDNA().getEnergyConsumption()).average().orElse(0.0);
   }
 
-  public boolean areBothSpeciesAlive() {
-    return getAlivePredators().size() != 0 && getAlivePreys().size() != 0;
+  public int getAlivePredatorsCount() {
+    return getAlivePredators().size();
+  }
+
+  public int getAlivePreysCount() {
+    return getAlivePreys().size();
   }
 }

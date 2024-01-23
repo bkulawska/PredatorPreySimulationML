@@ -54,5 +54,6 @@ public class Predator extends AnimalImpl{
 
     public void eatPrey(double energy) {
         this.energy += energy;
+        this.getDayReport().recordEat();
     }
 }

@@ -1,6 +1,7 @@
 package map;
 
 import animal.Animal;
+import animal.AnimalImpl;
 import animal.Prey;
 import observer.IFieldAvailabilityObserver;
 import observer.IFieldAvailabilityPublisher;
@@ -204,5 +205,10 @@ public class WorldMap implements IPositionChangeObserver, IFieldAvailabilityPubl
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void endDay() {
+    alivePredators.forEach(Animal::resetDayReport);
+    alivePreys.forEach(Animal::resetDayReport);
   }
 }
